@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Smart Legacy Creator | Cardano Estate DApp</title>
+  <title>Claim Will | Cardano Estate DApp</title>
 
   <style>
-    /* === New Modern Gradient Theme === */
-
+    /* === Modern Gradient + Glass UI Theme === */
     body {
       font-family: "Inter", Arial, sans-serif;
       max-width: 760px;
       margin: 3rem auto;
       padding: 0 1rem;
-      background: linear-gradient(135deg, #101828, #1d3557);
+      background: linear-gradient(135deg, #0f172a, #1e293b);
       color: #f1f5f9;
       line-height: 1.7;
     }
@@ -23,17 +22,17 @@
       font-size: 2.4rem;
       margin-bottom: 2rem;
       font-weight: 700;
-      background: linear-gradient(90deg, #84d2ff, #a5f3fc);
+      background: linear-gradient(90deg, #7dd3fc, #a5f3fc);
       -webkit-background-clip: text;
       color: transparent;
     }
 
     .card {
       background: rgba(255, 255, 255, 0.08);
-      padding: 2.3rem;
+      padding: 2.2rem;
       border-radius: 18px;
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(10px);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
       animation: fadeIn 0.5s ease;
     }
@@ -45,13 +44,13 @@
 
     label {
       display: block;
-      margin-top: 1.2rem;
+      margin-top: 1.3rem;
       font-weight: 600;
       font-size: 1.1rem;
       color: #e2e8f0;
     }
 
-    input, textarea, button {
+    input, button {
       width: 100%;
       padding: 0.9rem;
       margin-top: 0.45rem;
@@ -64,16 +63,10 @@
       transition: border 0.25s, background 0.25s;
     }
 
-    input:focus,
-    textarea:focus {
+    input:focus {
       border-color: #7dd3fc;
       background: rgba(255, 255, 255, 0.18);
       outline: none;
-    }
-
-    textarea {
-      min-height: 140px;
-      resize: vertical;
     }
 
     button {
@@ -83,6 +76,7 @@
       background: linear-gradient(90deg, #0ea5e9, #3b82f6);
       color: #fff;
       transition: background 0.25s, transform 0.1s;
+      margin-top: 1.4rem;
     }
 
     button:disabled {
@@ -99,59 +93,50 @@
     }
 
     #status {
-      margin-top: 1.3rem;
+      margin-top: 1.4rem;
       font-weight: 600;
       font-size: 1.15rem;
       color: #a5f3fc;
     }
 
     .action-btn {
-      display: flex;
-      justify-content: space-between;
-      gap: 1.3rem;
-      margin-top: 2.4rem;
+      margin-top: 2rem;
     }
 
-    .nav-btn {
-      flex: 1;
+    .back-btn {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 10px;
       background: linear-gradient(90deg, #4b5563, #6b7280);
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.25s;
     }
 
-    .nav-btn:hover {
+    .back-btn:hover {
       background: linear-gradient(90deg, #374151, #4b5563);
-    }
-
-    small {
-      font-size: 0.85rem;
-      color: #cbd5e1;
     }
   </style>
 </head>
 <body>
 
-  <h1>Smart Legacy Creator</h1>
+  <h1>Claim Your Inherited ADA</h1>
 
   <div class="card">
-    <button id="connect-btn">🔗 Connect Wallet</button>
-    <button id="copyPubKeyBtn" disabled>📋 Copy My PubKeyHash</button>
+    <label for="beneficiaries">Your PubKeyHash</label>
+    <input type="text" id="beneficiaries" placeholder="Enter your PubKeyHash" />
 
-    <label for="beneficiaries">Beneficiaries & Allocation<br><small>(One per line → pubkey, ADA amount)</small></label>
-    <textarea id="beneficiaries" placeholder="addr1..., 500\naddr1..., 1500"></textarea>
+    <label for="claimAmount">Amount to Claim (ADA)</label>
+    <input type="number" id="claimAmount" placeholder="e.g., 500" />
 
-    <label for="unlockTime">Unlock Time<br><small>(Funds become claimable on this date)</small></label>
-    <input type="datetime-local" id="unlockTime" />
-
-    <label class="checkbox-label">
-      <input type="checkbox" id="partialClaim" /> Allow Partial Claim
-    </label>
-
-    <button id="createWillBtn" disabled>📝 Create Smart Will</button>
+    <button id="claimWillBtn" disabled>💰 Claim Will</button>
 
     <div id="status"></div>
 
     <div class="action-btn">
-      <button class="nav-btn" onclick="window.location.href='welcome.html'">← Back</button>
-      <button class="nav-btn" onclick="window.location.href='claim_will.html'">Next → Claim</button>
+      <button class="back-btn" onclick="window.location.href='welcome.html'">← Back to Welcome</button>
     </div>
   </div>
 
