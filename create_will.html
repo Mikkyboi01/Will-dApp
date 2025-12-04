@@ -3,139 +3,158 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Create Will | Cardano Will DApp</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Smart Legacy Creator | Cardano Estate DApp</title>
+
   <style>
-    :root {
-      --primary: #2b7cff;
-      --bg: #f7f9fc;
-      --card-bg: #ffffff;
-      --border: #d9e2ec;
-      --radius: 12px;
-    }
+    /* === New Modern Gradient Theme === */
 
     body {
       font-family: "Inter", Arial, sans-serif;
-      background: var(--bg);
-      margin: 0;
-      padding: 2rem;
-      display: flex;
-      justify-content: center;
-    }
-
-    .container {
-      background: var(--card-bg);
-      padding: 2rem;
-      max-width: 650px;
-      width: 100%;
-      border-radius: var(--radius);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      max-width: 760px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      background: linear-gradient(135deg, #101828, #1d3557);
+      color: #f1f5f9;
+      line-height: 1.7;
     }
 
     h1 {
-      margin-top: 0;
-      font-size: 2rem;
-      color: #1a1a1a;
       text-align: center;
+      font-size: 2.4rem;
+      margin-bottom: 2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #84d2ff, #a5f3fc);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2.3rem;
+      border-radius: 18px;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     label {
       display: block;
-      margin-top: 1.5rem;
+      margin-top: 1.2rem;
       font-weight: 600;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
+      color: #e2e8f0;
     }
 
-    input,
-    textarea,
-    button {
+    input, textarea, button {
       width: 100%;
-      padding: 0.8rem;
-      margin-top: 0.4rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
+      padding: 0.9rem;
+      margin-top: 0.45rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
       font-size: 1rem;
-      box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.08);
+      color: #f8fafc;
+      backdrop-filter: blur(6px);
+      transition: border 0.25s, background 0.25s;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #7dd3fc;
+      background: rgba(255, 255, 255, 0.18);
+      outline: none;
     }
 
     textarea {
-      min-height: 90px;
+      min-height: 140px;
       resize: vertical;
     }
 
     button {
       cursor: pointer;
-      background: var(--primary);
-      border: none;
-      color: white;
       font-weight: 600;
-      transition: 0.2s;
+      border: none;
+      background: linear-gradient(90deg, #0ea5e9, #3b82f6);
+      color: #fff;
+      transition: background 0.25s, transform 0.1s;
     }
 
     button:disabled {
-      background: #9bbcf0;
+      background: #64748b;
       cursor: not-allowed;
     }
 
     button:hover:not(:disabled) {
-      opacity: 0.9;
+      background: linear-gradient(90deg, #0284c7, #2563eb);
+    }
+
+    button:active:not(:disabled) {
+      transform: scale(0.97);
+    }
+
+    #status {
+      margin-top: 1.3rem;
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: #a5f3fc;
     }
 
     .action-btn {
       display: flex;
       justify-content: space-between;
-      gap: 1rem;
-      margin-top: 2rem;
+      gap: 1.3rem;
+      margin-top: 2.4rem;
     }
 
-    .action-btn button {
-      background: #eceff3;
-      color: #000;
+    .nav-btn {
+      flex: 1;
+      background: linear-gradient(90deg, #4b5563, #6b7280);
     }
 
-    #status {
-      margin-top: 1.5rem;
-      font-weight: bold;
-      color: #333;
-      min-height: 1.2rem;
+    .nav-btn:hover {
+      background: linear-gradient(90deg, #374151, #4b5563);
     }
 
-    .checkbox-row {
-      margin-top: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
+    small {
+      font-size: 0.85rem;
+      color: #cbd5e1;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Create Will</h1>
 
-    <button id="connect-btn">Connect Wallet</button>
-    <button id="copyPubKeyBtn" disabled>Copy My PubKeyHash</button>
+  <h1>Smart Legacy Creator</h1>
 
-    <label for="beneficiaries">Beneficiaries & Allocation</label>
-    <textarea id="beneficiaries" placeholder="pubkey1,500\npubkey2,1500"></textarea>
+  <div class="card">
+    <button id="connect-btn">🔗 Connect Wallet</button>
+    <button id="copyPubKeyBtn" disabled>📋 Copy My PubKeyHash</button>
 
-    <label for="unlockTime">Unlock Time</label>
+    <label for="beneficiaries">Beneficiaries & Allocation<br><small>(One per line → pubkey, ADA amount)</small></label>
+    <textarea id="beneficiaries" placeholder="addr1..., 500\naddr1..., 1500"></textarea>
+
+    <label for="unlockTime">Unlock Time<br><small>(Funds become claimable on this date)</small></label>
     <input type="datetime-local" id="unlockTime" />
 
-    <div class="checkbox-row">
-      <input type="checkbox" id="partialClaim" />
-      <label for="partialClaim" style="margin: 0; font-weight: 500;">Allow Partial Claim</label>
-    </div>
+    <label class="checkbox-label">
+      <input type="checkbox" id="partialClaim" /> Allow Partial Claim
+    </label>
 
-    <button id="createWillBtn" disabled>Create Will (Lock ADA)</button>
+    <button id="createWillBtn" disabled>📝 Create Smart Will</button>
 
     <div id="status"></div>
 
     <div class="action-btn">
-      <button onclick="window.location.href='welcome.html'">← Back</button>
-      <button onclick="window.location.href='claim_will.html'">Next →</button>
+      <button class="nav-btn" onclick="window.location.href='welcome.html'">← Back</button>
+      <button class="nav-btn" onclick="window.location.href='claim_will.html'">Next → Claim</button>
     </div>
-
-    <script type="module" src="will.js"></script>
   </div>
+
+  <script type="module" src="will.js"></script>
 </body>
 </html>
