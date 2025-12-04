@@ -4,14 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Create Will | Cardano Will DApp</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --primary: #2b7cff;
-      --bg: #f7f9fc;
+      --primary-hover: #1f6be0;
+      --bg: #f4f7fb;
       --card-bg: #ffffff;
       --border: #d9e2ec;
-      --radius: 12px;
+      --text: #1a1a1a;
+      --radius: 14px;
+      --transition: 0.25s ease;
     }
 
     body {
@@ -21,45 +27,62 @@
       padding: 2rem;
       display: flex;
       justify-content: center;
+      align-items: flex-start;
     }
 
     .container {
       background: var(--card-bg);
-      padding: 2rem;
-      max-width: 650px;
+      padding: 2rem 2.4rem;
+      max-width: 700px;
       width: 100%;
       border-radius: var(--radius);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
-      margin-top: 0;
-      font-size: 2rem;
-      color: #1a1a1a;
+      margin: 0 0 1rem 0;
+      font-size: 2.1rem;
+      color: var(--text);
       text-align: center;
+      font-weight: 700;
     }
 
     label {
       display: block;
-      margin-top: 1.5rem;
+      margin-top: 1.4rem;
       font-weight: 600;
       font-size: 1.05rem;
+      color: #333;
     }
 
     input,
     textarea,
     button {
       width: 100%;
-      padding: 0.8rem;
-      margin-top: 0.4rem;
+      padding: 0.85rem;
+      margin-top: 0.45rem;
       border-radius: var(--radius);
       border: 1px solid var(--border);
       font-size: 1rem;
       box-sizing: border-box;
+      transition: var(--transition);
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(43,124,255,0.15);
     }
 
     textarea {
-      min-height: 90px;
+      min-height: 110px;
       resize: vertical;
     }
 
@@ -69,7 +92,10 @@
       border: none;
       color: white;
       font-weight: 600;
-      transition: 0.2s;
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--primary-hover);
     }
 
     button:disabled {
@@ -77,34 +103,41 @@
       cursor: not-allowed;
     }
 
-    button:hover:not(:disabled) {
-      opacity: 0.9;
+    .secondary-btn {
+      background: #eceff3;
+      color: #000;
+    }
+
+    .secondary-btn:hover {
+      background: #dde1e6;
     }
 
     .action-btn {
       display: flex;
       justify-content: space-between;
       gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .action-btn button {
-      background: #eceff3;
-      color: #000;
+      margin-top: 2.5rem;
     }
 
     #status {
       margin-top: 1.5rem;
-      font-weight: bold;
-      color: #333;
+      font-weight: 600;
+      color: #444;
       min-height: 1.2rem;
+      background: #f1f4f8;
+      border-radius: var(--radius);
+      padding: 0.8rem 1rem;
     }
 
     .checkbox-row {
-      margin-top: 1rem;
+      margin-top: 1.2rem;
       display: flex;
       align-items: center;
       gap: 0.6rem;
+    }
+
+    .checkbox-row input {
+      width: auto;
     }
   </style>
 </head>
@@ -131,8 +164,8 @@
     <div id="status"></div>
 
     <div class="action-btn">
-      <button onclick="window.location.href='welcome.html'">← Back</button>
-      <button onclick="window.location.href='claim_will.html'">Next →</button>
+      <button class="secondary-btn" onclick="window.location.href='welcome.html'">← Back</button>
+      <button class="secondary-btn" onclick="window.location.href='claim_will.html'">Next →</button>
     </div>
 
     <script type="module" src="will.js"></script>
