@@ -9,10 +9,10 @@
     :root {
       --primary: #3b82f6;
       --primary-hover: #2563eb;
-      --bg: #f1f5f9;
-      --card-bg: white;
-      --border: #e2e8f0;
-      --radius: 16px;
+      --bg: #eef3ff;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --border: #d0d7e5;
+      --radius: 20px;
       --text-muted: #64748b;
       --transition: 0.25s ease;
     }
@@ -22,6 +22,7 @@
       padding: 2rem;
       font-family: "Inter", Arial, sans-serif;
       background: var(--bg);
+      background: linear-gradient(135deg, #e2e8f0, #eef3ff 40%, #dbeafe);
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -37,52 +38,83 @@
     }
 
     h1 {
-      margin-bottom: 2.2rem;
-      font-size: 2.6rem;
+      margin-bottom: 2.8rem;
+      font-size: 3rem;
       font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #0f172a;
+      background: linear-gradient(to right, #2563eb, #3b82f6);
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -1px;
     }
 
     .dashboard {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.2rem;
       padding: 0 1rem;
     }
 
     .card {
       background: var(--card-bg);
+      backdrop-filter: blur(10px);
       border: 1px solid var(--border);
-      padding: 2.2rem;
+      padding: 2.4rem;
       border-radius: var(--radius);
       text-align: left;
       cursor: pointer;
-      transition: transform var(--transition), box-shadow var(--transition), border var(--transition);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+      transition: transform var(--transition),
+                  box-shadow var(--transition),
+                  border var(--transition);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 60%);
+      transform: scale(0);
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover::before {
+      transform: scale(1);
     }
 
     .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
       border-color: var(--primary);
     }
 
     .card h2 {
-      margin: 0 0 0.8rem;
-      font-size: 1.7rem;
+      margin: 0 0 1rem;
+      font-size: 1.9rem;
       font-weight: 700;
       color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .icon {
+      width: 32px;
+      height: 32px;
+      opacity: 0.8;
     }
 
     .card p {
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
-    /* Smooth fade animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -95,16 +127,32 @@
     <h1>Cardano Will DApp</h1>
 
     <div class="dashboard">
+
+      <!-- Create Will -->
       <div class="card" onclick="window.location.href='create_will.html'">
-        <h2>Create Will</h2>
-        <p>Set up a secure, decentralized blockchain-based will for your beneficiaries.</p>
+        <h2>
+          <img class="icon" src="https://via.placeholder.com/32" alt="Create Icon">
+          Create Will
+        </h2>
+        <p>
+          Set up a secure, decentralized, blockchain-backed will for your beneficiaries.
+        </p>
       </div>
 
+      <!-- Claim Will -->
       <div class="card" onclick="window.location.href='claim_will.html'">
-        <h2>Claim Will</h2>
-        <p>Verify your identity through blockchain and claim your allocated inheritance.</p>
+        <h2>
+          <img class="icon" src="https://via.placeholder.com/32" alt="Claim Icon">
+          Claim Will
+        </h2>
+        <p>
+          Verify your identity and access your assigned inheritance on-chain.
+        </p>
       </div>
+
     </div>
   </div>
 </body>
 </html>
+
+
